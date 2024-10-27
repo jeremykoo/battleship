@@ -1,18 +1,20 @@
 import './styles.css';
 import { Player } from './Player.js';
+import { ScreenController } from './ScreenController.js';
+import { GameController } from './GameController.js';
 
-const content = document.querySelector('.content');
-content.textContent = 'hello world';
 
+// const game = GameController();
+// game.initialize();
+// game.playRound(0,0);
+// game.playRound(8,8);
+// game.playRound(0,1);
+// game.playRound(1,2);
+// game.playRound(0,2);
+// game.playRound(3,3);
+// game.playRound(0,3);
 
-const player = Player('player');
-const computer = Player('computer');
-
-computer.getGameboard().placeShip('carrier', 0, 0, 4, 'horizontal');
-
-player.attack(computer, 0, 2);
-console.log(computer.getGameboard().getBoard());
-player.attack(computer, 0, 2);
-console.log(computer.getGameboard().getBoard());
-player.attack(computer, 9, 9);
-console.log(computer.getGameboard().getBoard());
+const dom = ScreenController();
+dom.pregame();
+// dom.renderBoard(game.player.getGameboard().getBoard());
+// dom.renderBoard(game.player.getGuessboard());

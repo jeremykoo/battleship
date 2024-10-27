@@ -20,7 +20,9 @@ export const Gameboard = (() => {
         board[i].push(0);
       }
     }
-    ships = {};
+    for (const prop of Object.getOwnPropertyNames(ships)) {
+      delete ships[prop];
+    }
   }
   
   const placeShip = (id, x, y, length, orientation) => {
@@ -42,23 +44,24 @@ export const Gameboard = (() => {
 
   const receiveAttack = (x, y) => {
     console.log('receiving attack at', x, y);
-    if (board[x][y] === 'hit') {
-      console.log('already hit this spot, try again');
+    if (x === null || y === null) {
+      return;
+    }
+
+    if (board[x][y] === 'hit' || board[x][y] === 'miss') {
       // make this throw an error instead
       return null;
     }
 
     if (board[x][y] === 0) {
-      console.log('attack missed');
       board[x][y] = 'miss';
       return false;
     }
 
-    console.log('successful hit');
     const shipID = board[x][y];
     const ship = getShipByID(shipID);
     ship.hit();
-    ship.printHits();
+    // ship.printHits();
     board[x][y] = 'hit';
     return true;
   }
