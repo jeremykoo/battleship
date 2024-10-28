@@ -17,7 +17,7 @@ export const Player = ((playerName) => {
   const getName = () => name;
 
   const populateShip = (id, x, y, length, orientation) => {
-    gameboard.placeShip(id, x, y, length, orientation);
+    return gameboard.placeShip(id, x, y, length, orientation);
   }
 
   const resetBoards = () => {
@@ -38,13 +38,13 @@ export const Player = ((playerName) => {
     const enemyBoard = enemy.getGameboard();
     const result = enemyBoard.receiveAttack(x, y);
     if (result === null) {
-      console.log('already hit this spot, try again');
+      // console.log('already hit this spot, try again');
     } else if (result === false) {
-      console.log('attack missed');
+      // console.log('attack missed');
       guessboard[x][y] = 'miss';
       return false;
     } else if (result === true) {
-      console.log('successful hit');
+      // console.log('successful hit');
       guessboard[x][y] = 'hit';
     }
     return true;

@@ -43,7 +43,6 @@ export const ScreenController = () => {
     instructions.textContent = `Place your ships on the board, ${game.player.getName()}!`;
     renderBoard(game.player.getGameboard().getBoard());
     renderPieces();
-    placeComputerPieces();
   }
 
   const playScreen = () => {
@@ -60,7 +59,6 @@ export const ScreenController = () => {
       const winner = game.playRound(x, y);
 
       playScreen();
-      console.log('who is the winner', winner);
       if (winner) {
         displayModal(winner);
         return;
@@ -194,7 +192,10 @@ export const ScreenController = () => {
           event.preventDefault();
           const pieceID = event.dataTransfer.getData('text/plain');
           console.log(pieceID, 'dropped successfully on', i, j);
-          game.addPlayerShip(pieceID, i, j, shipMap[pieceID], piecesOrientation);
+          const place = game.addPlayerShip(pieceID, i, j, shipMap[pieceID], piecesOrientation);
+          if (place === false) {
+            return;
+          }
           const index = shipList.indexOf(pieceID);
           if (index !== -1) {
             shipList.splice(index, 1);
@@ -202,6 +203,7 @@ export const ScreenController = () => {
           selectionScreen();
 
           if (shipList.length === 0) {
+            placeComputerPieces();
             playScreen();
           }
         });

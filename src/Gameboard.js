@@ -29,11 +29,27 @@ export const Gameboard = (() => {
     const ship = Ship(id, length);
     ships[id] = ship;
 
+    if (x + length > 10 ||  y + length > 10) {
+      return false;
+    }
+
     if (orientation === 'horizontal') {
+      for (let i = y; i < y + length; i++) {
+        if (board[x][i] !== 0) {
+          return false;
+        }
+      }
+
       for (let i = y; i < y + length; i++) {
         board[x][i] = id;
       }
     } else if (orientation === 'vertical') {
+      for (let i = x; i < x + length; i++) {
+        if (board[x][i] !== 0) {
+          return false;
+        }
+      }
+
       for (let i = x; i < x + length; i++) {
         board[i][y] = id;
       }
